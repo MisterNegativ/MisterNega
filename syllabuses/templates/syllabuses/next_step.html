@@ -1,0 +1,69 @@
+{% extends 'syllabuses/base.html' %}
+
+{% block content %}
+<style>
+   textarea, select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+
+</style>
+<div class="container">
+<br/>
+<h2>Шаг 3</h2>{{syllabus}}
+<br>
+Укажите обязательную и дополнительную литературу
+<br/>
+<br/>
+<form method="post" id="literature-form">
+    {% csrf_token %}
+    <select class="form-input" form = "literature-form" name="liter">
+        {% for r in literatures %}
+        <option value={{r.id}}>{{r.title}}</option>
+        {% endfor %}
+    </select>
+    <br/>
+    <label>Обязательная</label>
+    <input value="1" type="radio" name="mandatory" form = "literature-form">
+    
+    <label>Дополнительная</label>
+    <input value="0" type="radio" name="mandatory" form = "literature-form">
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>
+<!-- Отображение добавленной литературы -->
+<h3>Добавленная в силлабус литература</h3>
+<ol>
+  {% for literature in literaturesinsyllabus %}
+      <li>{{ literature.literature }}
+        {% if literature.mandatory == True %}
+        Обязательная
+        {% else %}
+        Дополнительная
+        {% endif %}
+        <form method="POST" action="{% url 'delete_literature' pk=literature.id syllabus_id=syllabus.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Удалить</button>
+        </form>
+      </li>
+
+  {% endfor %}
+</ol>
+<br/>
+<a href="{% url 'literature_form' syllabus.id %}" class="btn btn-primary btn-lg">Назад</a>
+<a href="{% url 'half' syllabus.id %}" class="btn btn-primary btn-lg">Далее</a>
+
+</div>
+{% endblock %}

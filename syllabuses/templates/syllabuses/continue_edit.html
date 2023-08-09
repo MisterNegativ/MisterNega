@@ -1,0 +1,24 @@
+{% extends 'syllabuses/base.html' %}
+
+{% block content %}
+<div class="container">
+  <br/>
+  <h2>Детали силлабуса {{ syllabus.syllabus_name }}</h2>
+  <a href="{% url 'continue_edit' %}" class="btn btn-primary btn-lg">Продолжить создание</a>
+  <br/>
+  <br/>
+  <h4>Основная информация</h4>
+  <form method="post" id="syllabus-form">
+    {% csrf_token %}
+    <!-- Rest of the form code... -->
+
+  </form>
+
+  {% if syllabus.status.type in ["added modules", "added policy", "Ready"] %}
+    <h3>Добавлено:</h3>
+    <table>
+      <!-- Module table code... -->
+    </table>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'syllabuses/base.html' %}
+
+{% block content %}
+<style>
+    input, textarea, select {
+      display: block;
+      width: 100%;
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 0.375rem;
+      transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+  </style>
+<div class="container">
+  <br/>
+  <h2>Шаг 2</h2><br/>
+  Заполните информацию о литературе
+  <br/>
+  <form method="post" id="literature-form">
+      {% csrf_token %}
+      <input class="form-input" name="title">
+      <button type="submit" class="btn btn-primary">Добавить литературу по дисциплине {{ syllabus.course }}</button>
+  </form>
+  <!-- Отображение добавленной литературы -->
+<h3>Добавленная литература</h3>
+<ol>
+    {% for literature in literatures %}
+        <li>{{ literature.title }}</li>
+    {% endfor %}
+</ol>
+<br/>
+<a href="{% url 'create_syllabus'%}" class="btn btn-primary btn-lg">Назад</a>
+<a href="{% url 'next_step' syllabus.id %}" class="btn btn-primary btn-lg">Далее</a>
+</div>
+
+
+{% endblock %}

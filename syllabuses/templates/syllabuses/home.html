@@ -1,0 +1,53 @@
+{% extends 'syllabuses/base.html' %}
+
+{% block content %}
+<style>
+    .btn {
+        display: inline-block;
+        border-radius: 4px;
+        background-color: #f4511e;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        font-size: 26px;
+        padding: 10 15px;
+        width: 200px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+      }
+      
+      .btn span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+      
+      .btn span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+      }
+      
+      .btn:hover span {
+        padding-right: 15px;
+      }
+      
+      .btn:hover span:after {
+        opacity: 1;
+        right: 0;
+      }
+</style>
+<div class="container">
+<br/>
+<h3>Приступайте к созданию силлабуса</h3>
+<br/>
+<br/>
+
+<a href="{% url 'create_syllabus' %}" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"><span>Начать</span></a>
+</div>
+{% endblock %}
